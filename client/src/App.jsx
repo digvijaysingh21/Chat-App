@@ -1,5 +1,6 @@
-import React, { lazy } from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import React, { lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectRoute from "./components/auth/ProtectRoute";
 
 const Home = lazy(() => import("./pages/Home"));
 
@@ -9,18 +10,33 @@ const Chat = lazy(() => import("./pages/Chat"));
 
 const Group = lazy(() => import("./pages/Group"));
 
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+
+let user = true;
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/chat/:chatId' element={<Chat/>}/>
-       <Route path='/group' element={<Group/>}/>
-        <Route path='/login' element={<Login/>}/>
-      </Routes>
-    
-    </BrowserRouter>
-  )
-}
+        <Route element={<ProtectRoute user={user} />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/chat/:chatId" element={<Chat />} />
+          <Route path="/groups" element={<Group />} />
+        </Route>
 
-export default App
+        <Route
+          path="/login"
+          element={
+            <ProtectRoute user={!user} redirect="/">
+              <Login />
+            </ProtectRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />}/>
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;
