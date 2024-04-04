@@ -2,9 +2,7 @@ import React from 'react'
 
 const NewGroup = () => {
   return (
-    <div>
-      New Group
-    </div>
+    <div>New group</div>
   )
 }
 

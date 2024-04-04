@@ -1,5 +1,9 @@
 import React from "react";
 import { Avatar, Stack, Typography } from "@mui/material";
+import {Face as FaceIcon, AlternateEmail as UserNameIcon,
+CalendarMonth as CalenderIcon} from "@mui/icons-material";
+import moment from "moment";
+
 
 const Profile = () => {
   return (
@@ -14,13 +18,15 @@ const Profile = () => {
         }}
       />
       <ProfileCard heading={"Bio"} text={"random text"} />
-      <ProfileCard heading={"Username"} text={"@userme"} />
-      <ProfileCard heading={"Name"} text={"user kumar"} />
+      <ProfileCard heading={"Username"} text={"userme"} Icon={<UserNameIcon/>}/>
+      <ProfileCard heading={"Name"} text={"user kumar"} Icon={<FaceIcon/>} />
+
+      <ProfileCard heading={"Joined"} text={moment('2024-04-03T18:30:00.000Z').fromNow()} Icon={<CalenderIcon/>} />
     </Stack>
   );
 };
 
-const ProfileCard = ({ text, Icon, heading }) => {
+const ProfileCard = ({ text, Icon, heading }) => (
   <Stack
     direction={"row"}
     alignItems={"center"}
@@ -36,7 +42,7 @@ const ProfileCard = ({ text, Icon, heading }) => {
         {heading}
       </Typography>
     </Stack>
-  </Stack>;
-};
+  </Stack>
+);
 
 export default Profile;
